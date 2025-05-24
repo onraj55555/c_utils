@@ -1,0 +1,13 @@
+construction functions:
+- new() -> empty vector
+- from(type * data, uint64_t length) -> vector initialised with data
+- copy(vector * other) -> copy constructor
+
+access functions:
+- get(uint64_t i) -> get a copy of the data
+- get_ref(uint64_t i) -> get a reference to the data
+
+modification functions:
+- pushback(type * data) -> copy data to the array as the last memory slot
+- popback() -> return the data and zero the location
+- remove(uint64_t i) -> remove the ith element (no return here)
