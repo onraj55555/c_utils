@@ -1,5 +1,4 @@
 #define MVECTOR_TYPE int
-#include "../mvector.h"
 #define MVECTOR_IMPL
 #include "../mvector.h"
 
@@ -7,7 +6,8 @@
 #include <stdio.h>
 
 int main() {
-    vector_int_t v;
+    puts("----- TESTING 1-int.c -----");
+    vector_int v;
 
     {
         vector_int_new(&v);
@@ -60,4 +60,6 @@ int main() {
         vector_int_delete(&v);
         printf("--- DELETE OK ---\n");
     }
+
+    puts("----- TESTING 1-int.c DONE -----");
 }

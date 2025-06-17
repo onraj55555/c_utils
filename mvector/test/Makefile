@@ -1,7 +1,15 @@
-1-c:
+1-int:
 	gcc 1-int.c -o 1-int
+
+2-big-struct-on-stack:
+	gcc 2-big-struct-on-stack.c -o 2-big-struct-on-stack
+
+run: 1-int 2-big-struct-on-stack
 	./1-int
-	rm 1-int
+	./2-big-struct-on-stack
+
+test: run
+	rm -f 1-int 2-big-struct-on-stack
 
 clean:
-	rm 1-int
+	rm -f 1-int 2-big-struct-on-stack
