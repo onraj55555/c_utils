@@ -40,25 +40,42 @@ typedef struct {
     int64_t capacity;
 } MVECTOR_PREFIX;
 
+// void vector_int_new(vector_int * self);
 void  MVECTOR_CONCAT(MVECTOR_PREFIX, _new)(MVECTOR_PREFIX * self);
+
+// void vector_int_new_reserve(vector_int * self, int64_t capacity)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _new_reserve)(MVECTOR_PREFIX * self, int64_t capacity);
+
+// int64_t vector_int_pushback(vector_int * self, int * value);
 int64_t MVECTOR_CONCAT(MVECTOR_PREFIX, _pushback)(MVECTOR_PREFIX * self, MVECTOR_TYPE * value);
+
+// void vector_int_popback(vector_int * self, int * dest);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _popback)(MVECTOR_PREFIX * self, MVECTOR_TYPE * dest);
+
+// void vector_int_get(vector_int * self, int64_t index, int * dest);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _get)(MVECTOR_PREFIX * self, int64_t index, MVECTOR_TYPE * dest);
+
+// int * vector_int_get_ref(vector_int * self, int64_t index);
 MVECTOR_TYPE * MVECTOR_CONCAT(MVECTOR_PREFIX, _get_ref)(MVECTOR_PREFIX * self, int64_t index);
+
+// void vector_int_insert_at(vector_int * self, int64_t index, int * value);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _insert_at)(MVECTOR_PREFIX * self, int64_t index, MVECTOR_TYPE * value);
+
+// void vector_int_delete(vector_int * self)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self);
 
 #ifdef MVECTOR_IMPL
 
 int MVECTOR_CONCAT(MVECTOR_PREFIX, _error) = 0;
 
+// void vector_int_new(vector_int * self);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _new)(MVECTOR_PREFIX * self) {
     self->data = 0;
     self->size = 0;
     self->capacity = 0;
 }
 
+// void vector_int_new_reserve(vector_int * self, int64_t capacity)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _new_reserve)(MVECTOR_PREFIX * self, int64_t capacity) {
     if(capacity < 0) {
         MVECTOR_CONCAT(MVECTOR_PREFIX, _error) = invalid_value;
@@ -76,6 +93,7 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _new_reserve)(MVECTOR_PREFIX * self, int64_t
     self->capacity = capacity;
 }
 
+// int64_t vector_int_pushback(vector_int * self, int * value);
 int64_t MVECTOR_CONCAT(MVECTOR_PREFIX, _pushback)(MVECTOR_PREFIX * self, MVECTOR_TYPE * value) {
     if(self->capacity == 0) {
         self->data = (MVECTOR_TYPE *)malloc(1 * sizeof(MVECTOR_TYPE));
@@ -102,6 +120,7 @@ int64_t MVECTOR_CONCAT(MVECTOR_PREFIX, _pushback)(MVECTOR_PREFIX * self, MVECTOR
     return self->size++;
 }
 
+// void vector_int_popback(vector_int * self, int * dest);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _popback)(MVECTOR_PREFIX * self, MVECTOR_TYPE * dest) {
     if(self->size == 0) {
         MVECTOR_CONCAT(MVECTOR_PREFIX, _error) = empty;
@@ -115,6 +134,7 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _popback)(MVECTOR_PREFIX * self, MVECTOR_TYP
     self->size--;
 }
 
+// void vector_int_get(vector_int * self, int64_t index, int * dest);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _get)(MVECTOR_PREFIX * self, int64_t index, MVECTOR_TYPE * dest) {
     // Wrap around
     if(index < 0) {
@@ -129,6 +149,7 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _get)(MVECTOR_PREFIX * self, int64_t index, 
     memcpy(dest, self->data + index, sizeof(MVECTOR_TYPE));
 }
 
+// int * vector_int_get_ref(vector_int * self, int64_t index);
 MVECTOR_TYPE * MVECTOR_CONCAT(MVECTOR_PREFIX, _get_ref)(MVECTOR_PREFIX * self, int64_t index) {
     // Wrap around
     if(index < 0) {
@@ -143,6 +164,7 @@ MVECTOR_TYPE * MVECTOR_CONCAT(MVECTOR_PREFIX, _get_ref)(MVECTOR_PREFIX * self, i
     return self->data + index;
 }
 
+// void vector_int_insert_at(vector_int * self, int64_t index, int * value);
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _insert_at)(MVECTOR_PREFIX * self, int64_t index, MVECTOR_TYPE * value) {
     // Wrap around
     if(index < 0) {
@@ -157,9 +179,12 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _insert_at)(MVECTOR_PREFIX * self, int64_t i
     memcpy(self->data + index, value, sizeof(MVECTOR_TYPE));
 }
 
+// void vector_int_delete(vector_int * self)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self) {
     free(self->data);
     self->data = 0;
+    self->size = 0;
+    self->capacity = 0;
 }
 #endif
 
