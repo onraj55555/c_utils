@@ -30,6 +30,8 @@ static inline void allocator_free(allocator_t * self, void * p) {
 #endif
 
 #ifdef ALLOCATOR_HEAP_ALLOCATOR
+#ifndef _ALLOCATOR_HEAP_ALLOCATOR
+#define _ALLOCATOR_HEAP_ALLOCATOR
 #include <stdlib.h>
 static inline void allocator_new_heap_allocator(allocator_t * self) {
     self->m_alloc = &malloc;
@@ -38,4 +40,4 @@ static inline void allocator_new_heap_allocator(allocator_t * self) {
     self->m_free = &free;
 }
 #endif
-
+#endif
