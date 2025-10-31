@@ -1,0 +1,1 @@
+Add a macro that checks if the error is being checked and panic if not, this can be used during testing to see if all possible errors are being handled and then turned off in production
