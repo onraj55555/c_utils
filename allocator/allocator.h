@@ -27,6 +27,7 @@ static inline void * allocator_realloc(allocator_t * self, void * p, size_t size
 static inline void allocator_free(allocator_t * self, void * p) {
     self->m_free(p);
 }
+#endif
 
 #ifdef ALLOCATOR_HEAP_ALLOCATOR
 #include <stdlib.h>
@@ -38,4 +39,3 @@ static inline void allocator_new_heap_allocator(allocator_t * self) {
 }
 #endif
 
-#endif
