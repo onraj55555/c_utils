@@ -1,11 +1,17 @@
+#define ALLOCATOR_HEAP_ALLOCATOR
+#include "allocator.h"
+
+#define MVECTOR_IMPLEMENTATION
 #define MVECTOR_TYPE int
-#define MVECTOR_IMPL
-#include "../mvector.h"
+#include "mvector.h"
 
 #include <assert.h>
 #include <stdio.h>
 
 int main() {
+    allocator_t a = { 0 };
+    allocator_new_heap_allocator(&a);
+
     puts("----- TESTING 1-int.c -----");
     vector_int v;
 
@@ -17,7 +23,7 @@ int main() {
 
     {
         for(int i = 0; i < 10; i++) {
-            assert(vector_int_pushback(&v, &i) == i);
+            assert(vector_int_pushback(&v, &i, &a) == i);
             assert(vector_int_error == ok);
         }
 
@@ -45,7 +51,7 @@ int main() {
 
     {
         for(int i = 0; i < 10; i++) {
-            assert(vector_int_pushback(&v, &i) == i);
+            assert(vector_int_pushback(&v, &i, &a) == i);
             assert(vector_int_error == ok);
         }
 
@@ -57,7 +63,7 @@ int main() {
     }
 
     {
-        vector_int_delete(&v);
+        vector_int_delete(&v, &a);
         printf("--- DELETE OK ---\n");
     }
 

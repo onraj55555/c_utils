@@ -5,12 +5,19 @@ typedef struct {
 
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
+
+#define ALLOCATOR_HEAP_ALLOCATOR
+#include "allocator.h"
 
 #define MVECTOR_TYPE person_t
-#define MVECTOR_IMPL
-#include "../mvector.h"
+#define MVECTOR_IMPLEMENTATION
+#include "mvector.h"
 
 int main() {
+    allocator_t a = { 0 };
+    allocator_new_heap_allocator(&a);
+
     puts("----- TESTING 2-big-struct-on-stack.c -----");
     char * name = "abc";
     person_t p;
@@ -21,7 +28,7 @@ int main() {
     vector_person_t_new(&vp);
 
     for(int i = 0; i < 100; i++) {
-        assert(vector_person_t_pushback(&vp, &p) == i);
+        assert(vector_person_t_pushback(&vp, &p, &a) == i);
         assert(vector_person_t_error == ok);
     }
 
