@@ -24,7 +24,6 @@ typedef enum {
 
 #endif
 
-#define MVECTOR_TYPE int
 #ifdef MVECTOR_TYPE
 
 #include <stdint.h>
