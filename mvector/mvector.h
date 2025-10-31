@@ -24,10 +24,10 @@ typedef enum {
 
 #endif
 
+#define MVECTOR_TYPE int
 #ifdef MVECTOR_TYPE
 
 #include <stdint.h>
-#include <string.h>
 #include "allocator.h"
 
 #define MVECTOR_PREFIX MVECTOR_CONCAT(vector_, MVECTOR_TYPE)
@@ -64,8 +64,16 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _insert_at)(MVECTOR_PREFIX * self, int64_t i
 // void vector_int_delete(vector_int * self)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self, allocator_t * a);
 
-#ifdef MVECTOR_IMPLEMENTATION
 
+#undef MVECTOR_TYPE
+#undef MVECTOR_PREFIX
+
+#endif
+
+// The actual implementation
+#ifdef MVECTOR_IMPLEMENTATION
+#ifndef _MVECTOR_IMPLEMENTATION
+#define _MVECTOR_IMPLEMENTATION
 int MVECTOR_CONCAT(MVECTOR_PREFIX, _error) = 0;
 
 // void vector_int_new(vector_int * self);
@@ -187,8 +195,4 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self, allocator_t 
     self->capacity = 0;
 }
 #endif
-
-#undef MVECTOR_TYPE
-#undef MVECTOR_PREFIX
-
 #endif
