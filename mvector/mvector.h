@@ -25,15 +25,6 @@ typedef enum {
 #endif
 
 #ifdef MVECTOR_TYPE
-#undef MVECTOR_TYPE
-#endif
-
-#ifdef MVECTOR_PREFIX
-#undef MVECTOR_PREFIX
-#endif
-
-#define MVECTOR_TYPE int
-#ifdef MVECTOR_TYPE
 
 #include <stdint.h>
 #include "allocator.h"
