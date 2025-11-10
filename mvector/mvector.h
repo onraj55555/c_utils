@@ -25,15 +25,33 @@ typedef enum {
 #endif
 
 #ifdef MVECTOR_TYPE
+#undef MVECTOR_TYPE
+#endif
+
+#ifdef MVECTOR_PREFIX
+#undef MVECTOR_PREFIX
+#endif
+
+#define MVECTOR_TYPE int
+#ifdef MVECTOR_TYPE
 
 #include <stdint.h>
 #include "allocator.h"
 
+// vector_int
 #define MVECTOR_PREFIX MVECTOR_CONCAT(vector_, MVECTOR_TYPE)
 
+// extern in vector_int_error;
 extern int MVECTOR_CONCAT(MVECTOR_PREFIX, _error);
 
 typedef struct MVECTOR_PREFIX MVECTOR_PREFIX;
+
+// struct vector_int { ... };
+struct MVECTOR_PREFIX {
+    MVECTOR_TYPE * data;
+    size_t size;
+    size_t capacity;
+};
 
 // void vector_int_new(vector_int * self);
 void  MVECTOR_CONCAT(MVECTOR_PREFIX, _new)(MVECTOR_PREFIX * self);
@@ -59,16 +77,12 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _insert_at)(MVECTOR_PREFIX * self, size_t in
 // void vector_int_delete(vector_int * self)
 void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self, allocator_t * a);
 
+#endif
+
 // The actual implementation
 #ifdef MVECTOR_IMPLEMENTATION
 
 #include <string.h>
-
-struct MVECTOR_PREFIX {
-    MVECTOR_TYPE * data;
-    size_t size;
-    size_t capacity;
-};
 
 int MVECTOR_CONCAT(MVECTOR_PREFIX, _error) = 0;
 
@@ -191,10 +205,4 @@ void MVECTOR_CONCAT(MVECTOR_PREFIX, _delete)(MVECTOR_PREFIX * self, allocator_t 
     self->capacity = 0;
 }
 #endif
-
-#undef MVECTOR_TYPE
-#undef MVECTOR_PREFIX
-
-#endif
-
 
