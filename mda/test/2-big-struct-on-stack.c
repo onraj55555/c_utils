@@ -10,9 +10,9 @@ typedef struct {
 #define ALLOCATOR_HEAP_ALLOCATOR
 #include "allocator.h"
 
-#define MVECTOR_TYPE person_t
-#define MVECTOR_IMPLEMENTATION
-#include "mvector.h"
+#define MDA_TYPE person_t
+#define MDA_IMPLEMENTATION
+#include "mda.h"
 
 int main() {
     allocator_t a = { 0 };
@@ -24,15 +24,15 @@ int main() {
     strcpy(p.name, name);
     p.age = 50;
 
-    vector_person_t vp;
-    vector_person_t_new(&vp);
+    da_person_t vp;
+    da_person_t_new(&vp);
 
     for(int i = 0; i < 100; i++) {
-        assert(vector_person_t_pushback(&vp, &p, &a) == i);
-        assert(vector_person_t_error == ok);
+        assert(da_person_t_pushback(&vp, &p, &a) == i);
+        assert(da_person_t_error == ok);
     }
 
-    assert(vector_person_t_get_ref(&vp, 0)->name != vector_person_t_get_ref(&vp, 1)->name);
+    assert(da_person_t_get_ref(&vp, 0)->name != da_person_t_get_ref(&vp, 1)->name);
 
     puts("----- TESTING 2-big-struct-on-stack.c DONE -----");
 }
