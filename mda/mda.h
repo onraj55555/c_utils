@@ -27,7 +27,9 @@ typedef enum {
 #include <stdint.h>
 #include "allocator.h"
 
+#ifndef MDA_PREFIX
 #define MDA_PREFIX MDA_CONCAT(da_, MDA_TYPE)
+#endif
 
 extern int MDA_CONCAT(MDA_PREFIX, _error);
 
