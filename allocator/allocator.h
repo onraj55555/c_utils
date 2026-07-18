@@ -9,6 +9,7 @@ struct allocator_t {
     void * (*m_alloc)(size_t size);
     void * (*m_clean_alloc)(size_t n, size_t size);
     void * (*m_realloc)(void * p, size_t size);
+    void * (*m_aligned_alloc)(size_t alignment, size_t * size);
     void (*m_free)(void * p);
 };
 
@@ -27,6 +28,10 @@ static inline void * allocator_realloc(allocator_t * self, void * p, size_t size
 static inline void allocator_free(allocator_t * self, void * p) {
     self->m_free(p);
 }
+
+static inline void * allocator_aligned_alloc(allocator_t * self, size_t alignment, size_t size) {
+    self->m_aligned_alloc(alignment, size);
+}
 #endif
 
 
@@ -38,6 +43,7 @@ static inline void allocator_new_heap_allocator(allocator_t * self) {
     self->m_alloc = &malloc;
     self->m_clean_alloc = &calloc;
     self->m_realloc = &realloc;
+    self->m_aligned_alloc = &aligned_alloc;
     self->m_free = &free;
 }
 #endif
