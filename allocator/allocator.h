@@ -9,7 +9,7 @@ struct allocator_t {
     void * (*m_alloc)(size_t size);
     void * (*m_clean_alloc)(size_t n, size_t size);
     void * (*m_realloc)(void * p, size_t size);
-    void * (*m_aligned_alloc)(size_t alignment, size_t * size);
+    void * (*m_aligned_alloc)(size_t alignment, size_t size);
     void (*m_free)(void * p);
 };
 
